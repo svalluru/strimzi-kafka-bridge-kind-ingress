@@ -1,3 +1,5 @@
+# Removed tolerations from https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+# as it was causing nginx pod not to be scheduled on node.
 #GENERATED FOR K8S 1.20
 apiVersion: v1
 #GENERATED FOR K8S 1.20
