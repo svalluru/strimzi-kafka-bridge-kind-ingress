@@ -42,6 +42,7 @@ EOF
    kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka 
    
    We now need to wait while Kubernetes starts the required pods, services and so on:
+   
    kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka 
    ```
 
@@ -55,12 +56,12 @@ And to receive them in a different terminal you can run:
 
 kubectl -n kafka run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.29.0-kafka-3.2.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic --from-beginning
 ```
-- Install Bridge
+## Step 8 - Install Strimzi Kafka Bridge
 
-kubectl -n kafka apply -f https://raw.githubusercontent.com/strimzi/strimzi-kafka-operator/0.29.0/examples/bridge/kafka-bridge.yaml
+` kubectl -n kafka apply -f https://raw.githubusercontent.com/strimzi/strimzi-kafka-operator/0.29.0/examples/bridge/kafka-bridge.yaml `
 
-- Create an Ingress object Bridge	
-
+## Step 9 - Create an Ingress object for Kafka Bridge	
+```
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -76,12 +77,19 @@ spec:
             name: my-bridge-bridge-service
             port:
               number: 8080
+```
+## Step 10 - Test if you can hit Kafka Bridge
 
-[svalluru@srikanth ~]$ curl localhost
+```
+curl localhost
 
+Output : 
 {"bridge_version":"0.21.5"}
+```
 
-References : 
+### References : 
+```
 https://strimzi.io/quickstarts/
 https://kind.sigs.k8s.io/docs/user/ingress/#ingress-nginx
+```
 
