@@ -38,6 +38,16 @@ EOF
 `kubectl get pod -n kafka --watch`
 
 ## Step 6 - Provision the Apache Kafka cluster
+
+Note : 
+  add advertisedHost snippet as required by skupper 
+  ```
+  configuration:
+          brokers:
+            - broker: 0
+              advertisedHost: my-cluster-kafka-0.my-cluster-kafka-brokers
+```
+
 ```
    kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka 
    
